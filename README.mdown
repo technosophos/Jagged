@@ -1,7 +1,11 @@
 # Jagged
 
-Jagged is a simple command-line JavaScript syntax checker. It uses the Mozilla
-Rhino JavaScript engine. http://www.mozilla.org/rhino/
+Jagged is a simple command-line JavaScript syntax checker. It uses the [Mozilla
+Rhino JavaScript engine](http://www.mozilla.org/rhino/).
+
+Jagged *checks syntax*. It does not "lint" source and make recommendations, nor
+does it do any runtime analysis. I use it to test things like generated or 
+aggregated JavaScript files.
 
 ## Installing and Building
 
@@ -55,3 +59,5 @@ uncovered a few issues that we know about:
   
 Rather than modify Rhino or add a number of special exceptions in Jagged, I've 
 approached these issues in the `rhino-saddle.sh` script.
+
+Jagged has been tested on Java 1.5+ on OS X 10.6, Debian Etch, and FreeBSD 7.3.
