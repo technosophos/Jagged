@@ -1,0 +1,57 @@
+# Jagged
+
+Jagged is a simple command-line JavaScript syntax checker. It uses the Mozilla
+Rhino JavaScript engine. http://www.mozilla.org/rhino/
+
+## Installing and Building
+
+Jagged uses only one small class (defined in `src/Jagged.java`) to provide a 
+command-line interface with Rhino's engine.
+
+A simple compilation script is available is `build.sh`. To build Jagged, run
+this:
+
+    $ build.sh
+
+(You will need a modern version of `javac` for this to work.)
+
+## Running with the Rhino Saddle
+
+Rhino saddle (`rhino-saddle.sh`) is a simple Bash script for running Jagged
+on one or more JavaScript files. To run a simple test, execute this:
+
+  $ ./rhino-saddle.sh test/good.js 
+  Tests: 1, Successes: 1, Failures: 0
+
+The output informs us that one file was tested successfully.
+
+You can use it against multiple files, too. To examine the test scripts,
+execute this:
+
+  $ ./rhino-saddle.sh test/*.js
+  test/bad.js (ln: 2, ch: 6): missing variable name NEAR r; foo = "
+    var; foo = "dingo";
+  Tests: 4, Successes: 3, Failures: 1
+  
+This detects a problem in `test/bad.js` and prints some context information.
+The example above illustrates the prime use-case for Jagged: It is not a 
+linting tool like JSLint or JavaScriptLint. Instead, it is a simple syntax
+checker. It just checks to see if the JS can be parsed and prepared for 
+execution.
+
+## Known Issues
+
+Jagged has been tested on thousands of strikingly similar JS files. This has
+uncovered a few issues that we know about:
+
+- BOMs: Aggregated JS files occasionally contain Unicode BOM (Byte-Order Markers)
+  in the middle of a file. While this is "illegal", it seems that most web browsers
+  simply ignore them. Rhino, however, does not.
+- Some reserved words in JavaScript (to wit, 'class', 'float', and the like) are 
+  correctly flagged by Rhino, but sometimes ignored by browsers.
+- Jagged is a syntax checker. It does not check whether or not referenced objects or
+  functions are in scope, available, etc. Consequently, Jagged won't catch
+  any associated runtime errors.
+  
+Rather than modify Rhino or add a number of special exceptions in Jagged, I've 
+approached these issues in the `rhino-saddle.sh` script.
