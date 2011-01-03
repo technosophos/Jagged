@@ -24,18 +24,18 @@ this:
 Rhino saddle (`rhino-saddle.sh`) is a simple Bash script for running Jagged
 on one or more JavaScript files. To run a simple test, execute this:
 
-  $ ./rhino-saddle.sh test/good.js 
-  Tests: 1, Successes: 1, Failures: 0
+    $ ./rhino-saddle.sh test/good.js
+    Tests: 1, Successes: 1, Failures: 0
 
 The output informs us that one file was tested successfully.
 
 You can use it against multiple files, too. To examine the test scripts,
 execute this:
 
-  $ ./rhino-saddle.sh test/*.js
-  test/bad.js (ln: 2, ch: 6): missing variable name NEAR r; foo = "
-    var; foo = "dingo";
-  Tests: 4, Successes: 3, Failures: 1
+    $ ./rhino-saddle.sh test/*.js
+    test/bad.js (ln: 2, ch: 6): missing variable name NEAR r; foo = "
+      var; foo = "dingo";
+    Tests: 4, Successes: 3, Failures: 1
   
 This detects a problem in `test/bad.js` and prints some context information.
 The example above illustrates the prime use-case for Jagged: It is not a 
